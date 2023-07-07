@@ -1,9 +1,11 @@
 const { Router } = require('express');
 const router = Router();
-const { getCountryWeather } = require('../controllers/index.controllers');
+const { getCityCords } = require('../controllers/city.controllers');
+const { getCityForecast } = require('../controllers/forecast.controllers');
 
 //Get countryWetaher by name
-router.get("/city", getCountryWeather);
+router.get("/city", getCityCords);
+router.get("/forecast", getCityForecast);
 
 
 
