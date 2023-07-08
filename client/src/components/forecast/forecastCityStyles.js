@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const ForecastContainer = styled.div`
-  padding: 25px;
-  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   height: 100%;
   display: flex;
+  gap: 20px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  background: linear-gradient(to bottom right, #c4e0e5, #82c0cc);
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -49,7 +49,7 @@ export const LoadingMessage = styled.div`
 `;
 
 export const CityName = styled.h2`
-  margin-bottom: 10px;
+  margin: 10px;
 `;
 
 export const DateHeading = styled.h3`
@@ -90,6 +90,7 @@ export const CarouselWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
+    width: 100%;
     height: auto;
     overflow-x: scroll;
     overflow-y: hidden;
