@@ -2,13 +2,6 @@ const {  DataTypes } = require('sequelize');
 const db = require('../database/index');
 
 const Forecast = db.define('Forecast', {
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      country: {
-        type: DataTypes.STRING,
-      },
       dt: {
         type: DataTypes.STRING,
       },

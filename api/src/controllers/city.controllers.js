@@ -17,6 +17,7 @@ const getCityCords = async (req, res, next) => {
     if (existingCity) {
       res.send({
         name: existingCity.name,
+        country: existingCity.country,
         lat: existingCity.lat,
         lon: existingCity.lon,
       });
@@ -25,25 +26,29 @@ const getCityCords = async (req, res, next) => {
         `https://api.openweathermap.org/geo/1.0/direct?q=${firstUpperName}&appid=${process.env.API_URL}&units=metric`
       );
 
-      const filteredForecast = apiUrl.data.map((city) => {
-        return {
-          name: city.name,
-          lat: city.lat,
-          lon: city.lon,
-        };
+      const cityData = apiUrl.data.find((city) => {
+        return city.name === firstUpperName && city.country === city.country;
       });
 
-      await City.bulkCreate(filteredForecast);
-
-      res.send(filteredForecast);
-      console.log("info", filteredForecast);
+      if (cityData) {
+        await City.create({
+          name: cityData.name,
+          country: cityData.country,
+          lat: cityData.lat,
+          lon: cityData.lon,
+        });
+  
+        res.send(cityData);
+        console.log("info", cityData);
+      } else {
+        res.status(400).send({ error: "No se encontró la ciudad" });
+      }
     }
   } catch (error) {
     next(error);
     console.log(error);
   }
 };
-
 
 module.exports = {
   getCityCords,

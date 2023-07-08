@@ -6,6 +6,9 @@ const City = db.define('City', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  country: {
+    type: DataTypes.STRING,
+  },
   lat: {
     type: DataTypes.FLOAT,
   },

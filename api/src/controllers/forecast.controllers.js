@@ -12,16 +12,15 @@ const getCityForecast = async (req, res, next) => {
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=en&appid=${process.env.API_URL}`
       );
 
+     
       
   
       const filteredForecast = apiUrl.data.list
-        .slice(0, 7) // Obtiene los primeros 7 elementos
+        .slice(0, 16) // Obtiene los primeros 7 elementos
         .map((forecast) => {
           // ... Mismo código de filtrado ...
   
           return {
-            name: apiUrl.data.city.name,
-            country: apiUrl.data.city.country,
             dt: forecast.dt_txt,
             feels_like: forecast.main.feels_like,
             humidity: forecast.main.humidity,
@@ -31,7 +30,7 @@ const getCityForecast = async (req, res, next) => {
             temp_min: forecast.main.temp_min,
             main: forecast.weather[0].main,
             description: forecast.weather[0].description,
-            icon: forecast.weather[0].icon,
+            icon: `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`,
             speed: forecast.wind.speed,
             deg: forecast.wind.deg,
             gust: forecast.wind.gust,
