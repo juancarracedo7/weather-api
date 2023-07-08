@@ -107,23 +107,10 @@ export const getCityByName = (name) => async (dispatch, getState) => {
 };
 
 // Acción asíncrona para obtener el pronóstico de una ciudad por su latitud y longitud
-export const getForecastByCoords = (lat, lon) => async (dispatch, getState) => {
+export const getForecastByCoords = (lat, lon) => async (dispatch) => {
+  console.log("latitudSlice", lat)
+  console.log("longitudSlice", lon)
   try {
-    const { cities: { lastRequestDate } } = getState(); // Obtiene la fecha y hora de la última solicitud del estado
-    const currentDate = new Date(); // Obtiene la fecha y hora actuales
-    const cachedData = localStorage.getItem("forecastData"); // Obtiene los datos del pronóstico del almacenamiento local
-
-    if (cachedData && lastRequestDate) {
-      const lastRequestDateObj = new Date(lastRequestDate); // Convierte la fecha y hora de la última solicitud en un objeto Date
-      const oneDayMilliseconds = 24 * 60 * 60 * 1000; // Calcula el número de milisegundos en un día
-
-      if (currentDate - lastRequestDateObj < oneDayMilliseconds) {
-        // Utiliza los datos en caché si la solicitud más reciente ocurrió en el mismo día
-        dispatch(forecastSuccess(JSON.parse(cachedData)));
-        return;
-      }
-    }
-
     dispatch(forecastRequest());
     // Realiza una solicitud HTTP para obtener el pronóstico por latitud y longitud
     const { data } = await axios.get(`http://localhost:3001/forecast?lat=${lat}&lon=${lon}`);
