@@ -3,8 +3,7 @@ import { WiHumidity } from "react-icons/wi";
 import { TodayForecast , WeatherImage, CityName, DateHeading, Temperature } from "../forecast/forecastCityStyles";
 
 const TodayForecasts = ({ forecast, city }) => {
-    console.log("nameToday", city.name)
-    console.log("forecastToday", forecast)
+ 
   return (
     <TodayForecast>
       <CityName>

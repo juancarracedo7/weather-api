@@ -7,8 +7,6 @@ const ForecastCity = ({ forecast, city }) => {
     if (!forecast || !city) {
       return <LoadingMessage>Loading forecast...</LoadingMessage>;
     }
-    console.log("forecast", forecast)
-    console.log("city", city)
   
     return (
       <ForecastContainer>

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Define el slice de Redux llamado "cities"
 export const citiesSlice = createSlice({
   name: "cities",
   initialState: {
@@ -12,54 +11,43 @@ export const citiesSlice = createSlice({
     lastRequestDate: null,
   },
   reducers: {
-    // Acción para indicar que se está realizando una solicitud de ciudad
     cityRequest: (state) => {
       state.loading = true;
     },
-    // Acción para actualizar el estado con la ciudad recibida
     citySuccess: (state, action) => {
       state.city = action.payload;
       state.loading = false;
     },
-    // Acción para actualizar el estado en caso de error durante la solicitud de ciudad
     cityFail: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
-    // Acción para indicar que se está realizando una solicitud de pronóstico
     forecastRequest: (state) => {
       state.loading = true;
     },
-    // Acción para actualizar el estado con el pronóstico recibido
     forecastSuccess: (state, action) => {
       state.forecast = action.payload;
       state.loading = false;
     },
-    // Acción para actualizar el estado en caso de error durante la solicitud de pronóstico
     forecastFail: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
-    // Acción para restablecer los detalles de la ciudad a null
     getCityDetails: (state) => {
       state.details = null;
     },
-    // Acción para actualizar el estado con los detalles de la ciudad recibidos
     getCityDetailsSuccess: (state, action) => {
       state.details = action.payload;
     },
-    // Acción para actualizar el estado en caso de error al obtener los detalles de la ciudad
     getCityDetailsFail: (state, action) => {
       state.error = action.payload;
     },
-    // Acción para actualizar la fecha y hora de la última solicitud de ciudad
     updateLastRequestDate: (state) => {
       state.lastRequestDate = new Date().toISOString();
     },
   },
 });
 
-// Exporta las acciones creadas por createSlice
 export const {
   cityRequest,
   citySuccess,
@@ -73,69 +61,60 @@ export const {
   updateLastRequestDate,
 } = citiesSlice.actions;
 
-// Acción asíncrona para obtener los datos de una ciudad por su nombre
 export const getCityByName = (name) => async (dispatch, getState) => {
   try {
-    const { cities: { lastRequestDate } } = getState(); // Obtiene la fecha y hora de la última solicitud del estado
-    const currentDate = new Date(); // Obtiene la fecha y hora actuales
-    const cachedData = localStorage.getItem("cityData"); // Obtiene los datos de la ciudad del almacenamiento local
+    const {
+      cities: { lastRequestDate },
+    } = getState();
+    const currentDate = new Date();
+    const cachedData = localStorage.getItem("cityData");
 
     if (cachedData && lastRequestDate) {
-      const lastRequestDateObj = new Date(lastRequestDate); // Convierte la fecha y hora de la última solicitud en un objeto Date
-      const oneDayMilliseconds = 24 * 60 * 60 * 1000; // Calcula el número de milisegundos en un día
+      const lastRequestDateObj = new Date(lastRequestDate);
+      const oneDayMilliseconds = 24 * 60 * 60 * 1000;
 
       if (currentDate - lastRequestDateObj < oneDayMilliseconds) {
-        // Utiliza los datos en caché si la solicitud más reciente ocurrió en el mismo día
         dispatch(citySuccess(JSON.parse(cachedData)));
         return;
       }
     }
 
     dispatch(cityRequest());
-    // Realiza una solicitud HTTP para obtener los datos de la ciudad por su nombre
-    const { data } = await axios.get(`https://weather-api-production-06d0.up.railway.app/city?name=${name}`);
-    // Actualiza el estado con los datos de la ciudad recibidos
+    const { data } = await axios.get(
+      `https://weather-api-production-06d0.up.railway.app/city?name=${name}`
+    );
     dispatch(citySuccess(data));
-    // Guarda los datos en caché
     dispatch(cacheForecastData());
-    // Actualiza la fecha y hora de la última solicitud
     dispatch(updateLastRequestDate());
   } catch (error) {
-    // Actualiza el estado en caso de error durante la solicitud de ciudad
     dispatch(cityFail(error.message));
   }
 };
 
-// Acción asíncrona para obtener el pronóstico de una ciudad por su latitud y longitud
 export const getForecastByCoords = (lat, lon) => async (dispatch) => {
-  console.log("latitudSlice", lat)
-  console.log("longitudSlice", lon)
   try {
     dispatch(forecastRequest());
-    // Realiza una solicitud HTTP para obtener el pronóstico por latitud y longitud
-    const { data } = await axios.get(`https://weather-api-production-06d0.up.railway.app/forecast?lat=${lat}&lon=${lon}`);
-    // Actualiza el estado con los datos del pronóstico recibidos
+    const { data } = await axios.get(
+      `https://weather-api-production-06d0.up.railway.app/forecast?lat=${lat}&lon=${lon}`
+    );
     dispatch(forecastSuccess(data));
-    // Guarda los datos en caché
     dispatch(cacheForecastData());
-    // Actualiza la fecha y hora de la última solicitud
     dispatch(updateLastRequestDate());
   } catch (error) {
-    // Actualiza el estado en caso de error durante la solicitud de pronóstico
     dispatch(forecastFail(error.message));
   }
 };
 
-// Acción para guardar los datos de los podcasts en caché
 export const cacheForecastData = () => (dispatch, getState) => {
-  const { cities: { forecast } } = getState(); // Obtiene los datos del pronóstico del estado
-  
+  const {
+    cities: { forecast },
+  } = getState();
+
   try {
-  // Guarda los datos en el almacenamiento local como una cadena JSON
-  localStorage.setItem("forecastData", JSON.stringify(forecast));
+    localStorage.setItem("forecastData", JSON.stringify(forecast));
   } catch (error) {
-  console.error("Error saving forecast data to localStorage:", error);
+    console.error("Error saving forecast data to localStorage:", error);
   }
-  };
+};
 
 export default citiesSlice.reducer;
