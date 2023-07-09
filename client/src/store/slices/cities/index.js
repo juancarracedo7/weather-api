@@ -93,7 +93,7 @@ export const getCityByName = (name) => async (dispatch, getState) => {
 
     dispatch(cityRequest());
     // Realiza una solicitud HTTP para obtener los datos de la ciudad por su nombre
-    const { data } = await axios.get(`http://localhost:3001/city?name=${name}`);
+    const { data } = await axios.get(`https://weather-api-production-06d0.up.railway.app/city?name=${name}`);
     // Actualiza el estado con los datos de la ciudad recibidos
     dispatch(citySuccess(data));
     // Guarda los datos en caché
@@ -113,7 +113,7 @@ export const getForecastByCoords = (lat, lon) => async (dispatch) => {
   try {
     dispatch(forecastRequest());
     // Realiza una solicitud HTTP para obtener el pronóstico por latitud y longitud
-    const { data } = await axios.get(`http://localhost:3001/forecast?lat=${lat}&lon=${lon}`);
+    const { data } = await axios.get(`https://weather-api-production-06d0.up.railway.app/forecast?lat=${lat}&lon=${lon}`);
     // Actualiza el estado con los datos del pronóstico recibidos
     dispatch(forecastSuccess(data));
     // Guarda los datos en caché
