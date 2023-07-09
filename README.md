@@ -63,7 +63,7 @@ Este es el archivo README para la aplicación de Clima, la cual te permite busca
     npm install
 
     npm run dev
-    La aplicación se ejecutará en http://localhost:3000 y podrás acceder a ella desde tu navegador web.
+    La aplicación se ejecutará en http://localhost:5173 y podrás acceder a ella desde tu navegador web.
 
 *Uso
 
