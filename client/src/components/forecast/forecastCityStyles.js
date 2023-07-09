@@ -1,28 +1,27 @@
 import styled from "styled-components";
 
 export const ForecastContainer = styled.div`
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
-  gap: 20px;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #c4e0e5, #82c0cc);
+  padding: 20px;
+  background-image: url(https://a-static.besthdwallpaper.com/background-scenery-wallpaper-2048x768-85065_85.jpg);
+  background-size: cover;
+  background-position: center;
 
   @media (max-width: 768px) {
-    padding: 20px;
+    padding: 10px;
   }
 `;
 
 export const TodayForecast = styled.div`
   text-align: center;
   margin-bottom: 20px;
-
+  backdrop-filter: blur(500px);
   @media (max-width: 768px) {
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
 `;
 
@@ -65,15 +64,10 @@ export const Description = styled.p`
 `;
 
 export const CarouselWrapper = styled.div`
-  width: 50%;
-  height: 50%;
+  width: 100%;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
   scrollbar-width: thin;
   scrollbar-color: #333333 transparent;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #333333 transparent; /* Firefox */
   white-space: nowrap;
 
   &::-webkit-scrollbar {
@@ -90,15 +84,7 @@ export const CarouselWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-snap-type: unset;
-    white-space: nowrap;
-    padding: 15px;
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
+    padding: 10px;
   }
 `;
 
@@ -146,5 +132,22 @@ export const CarouselButton = styled.button`
 
   &:last-of-type {
     right: 10px;
+  }
+`;
+
+
+export const RetryButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4287f5;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #2962c2;
   }
 `;

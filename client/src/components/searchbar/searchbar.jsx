@@ -12,6 +12,7 @@ import {
   ErrorMessage,
 } from "./searchbarStyles";
 import ForecastCity from "../forecast/forecastCity";
+import CityNotFound from "../cityNotFound/cityNotFound";
 
 const backgrounds = [
   "https://www.xtrafondos.com/descargar.php?id=5846&resolucion=2560x1440",
@@ -53,7 +54,7 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     if (city.trim() === "") {
-      setErrorMessage("Por favor, ingresa un valor de búsqueda");
+      setErrorMessage("Please, enter a city");
     } else {
       setErrorMessage("");
       dispatch(getCityByName(city));
@@ -63,9 +64,7 @@ const SearchBar = () => {
 
   if (error === "Request failed with status code 400")
     return (
-      <div>
-        <h1>La ciudad no existe</h1>
-      </div>
+      <CityNotFound />
     );
 
   return (
@@ -79,7 +78,7 @@ const SearchBar = () => {
               type="text"
               value={city}
               onChange={handleInputChange}
-              placeholder="Buscar ciudad"
+              placeholder="Search city..."
             />
             <ErrorMessage>{errorMessage}</ErrorMessage>
             <SearchButton onClick={handleSearch}>Buscar</SearchButton>
