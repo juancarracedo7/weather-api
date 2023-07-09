@@ -16,10 +16,8 @@ const getCityForecast = async (req, res, next) => {
       
   
       const filteredForecast = apiUrl.data.list
-        .slice(0, 16) // Obtiene los primeros 7 elementos
-        .map((forecast) => {
-          // ... Mismo código de filtrado ...
-  
+        .slice(0, 16) 
+        .map((forecast) => {  
           return {
             dt: forecast.dt_txt,
             feels_like: forecast.main.feels_like,

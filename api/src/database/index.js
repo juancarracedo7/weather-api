@@ -11,6 +11,5 @@ const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   port: DB_PORT,
 });
 
-console.log('DB_NAME', DB_NAME);
 
 module.exports = db;

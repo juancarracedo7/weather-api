@@ -12,8 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 // Rutas
 app.use(require("./routes/index"));
 
-// Sincronizar modelo con la base de datos
-
+// Puerto
 const PORT = process.env.PORT || 3001;
 
 const connect = async () => {

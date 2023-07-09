@@ -39,7 +39,6 @@ const getCityCords = async (req, res, next) => {
         });
   
         res.send(cityData);
-        console.log("info", cityData);
       } else {
         res.status(400).send({ error: "No se encontró la ciudad" });
       }
