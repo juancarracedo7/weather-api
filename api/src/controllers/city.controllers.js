@@ -27,7 +27,7 @@ const getCityCords = async (req, res, next) => {
       );
 
       const cityData = apiUrl.data.find((city) => {
-        return city.name === firstUpperName && city.country === city.country;
+        return city.name === firstUpperName;
       });
 
       if (cityData) {

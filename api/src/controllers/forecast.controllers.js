@@ -16,7 +16,7 @@ const getCityForecast = async (req, res, next) => {
       
   
       const filteredForecast = apiUrl.data.list
-        .slice(0, 16) 
+        .slice(0, 26) 
         .map((forecast) => {  
           return {
             dt: forecast.dt_txt,
