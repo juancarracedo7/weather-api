@@ -14,6 +14,8 @@ app.use(require("./routes/index"));
 
 // Sincronizar modelo con la base de datos
 
+const { DB_PORT } = process.env;
+
 const connect = async () => {
   console.log("Table created");
 };
@@ -24,7 +26,7 @@ async function startServer() {
     await db.sync({ force: false });
     console.log("Conexión exitosa a la base de datos");
     await connect();
-    app.listen(3001, () => {
+    app.listen(DB_PORT, () => {
       console.log("Servidor en ejecución en el puerto 3001");
     });
   } catch (error) {
